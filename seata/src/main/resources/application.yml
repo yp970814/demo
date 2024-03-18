@@ -1,0 +1,35 @@
+server:
+  port: 10601
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/voidme?characterEncoding=UTF-8
+  application:
+    name: seata
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.81.129:8848 #注册中心地址 我使用nginx做了集群代理了
+mybatis:
+  type-aliases-package: com.springbootalibaba.nacos.pojo
+  mapper-locations: classpath:mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+seata:
+  enabled: true # 默认就行
+  tx-service-group: my_test_tx_group #默认分组就是 my_test_tx_group这个可以不要动
+  enable-auto-data-source-proxy: true # 默认就行
+  registry:
+    type: nacos # 默认就行
+    nacos:
+      server-addr: 192.168.81.129:8848 # 改为自己的Nacos
+      # namespace: seata_namespace_id
+      group: SEATA_GROUP # 默认就行
+    config:
+      type: nacos # 默认就行
+      nacos:
+        server-addr: 192.168.81.129:8848 # 改为自己的Nacos
+        # namespace: seata_namespace_id
+        group: SEATA_GROUP
