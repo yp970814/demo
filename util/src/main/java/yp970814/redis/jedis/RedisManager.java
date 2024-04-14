@@ -1,4 +1,4 @@
-package yp970814.lock.redis.jedis;
+package yp970814.redis.jedis;
 
 import redis.clients.jedis.BinaryClient;
 import redis.clients.jedis.Jedis;

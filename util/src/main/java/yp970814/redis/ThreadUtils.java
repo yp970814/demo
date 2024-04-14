@@ -1,4 +1,4 @@
-package yp970814.lock.redis;
+package yp970814.redis;
 
 /**
  * @Author yuanping970814@163.com

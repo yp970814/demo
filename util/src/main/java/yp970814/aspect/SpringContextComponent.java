@@ -1,9 +1,15 @@
 package yp970814.aspect;
 
+import com.alibaba.dubbo.config.ApplicationConfig;
+import com.alibaba.dubbo.config.RegistryConfig;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
+import yp970814.properties.SysProperties;
+
+import java.util.Properties;
 
 /**
  * @Author yuanping970814@163.com
@@ -62,6 +68,34 @@ public class SpringContextComponent implements ApplicationContextAware {
      */
     public static <T> T getBean(String name, Class<T> clazz) {
         return getApplicationContext() == null ? null : getApplicationContext().getBean(name, clazz);
-
     }
+
+    public static <T> T getDubboBean(Class<T> clazz) throws Exception {
+        Properties prop = SysProperties.INSTANCE.getProperties("dubbo.properties");
+        ReferenceBean<T> ref = new ReferenceBean<T>();
+        ref.setVersion("1.0");
+        ref.setInterface(clazz);
+        ref.setCheck(false);
+        ref.setTimeout(30000);
+        ref.setGroup(clazz.getSimpleName());
+        ref.setApplication(new ApplicationConfig(prop.getProperty("dubbo.appName")));
+        ref.setRegistry(new RegistryConfig(prop.getProperty("dubbo.registry.address")));
+        ref.afterPropertiesSet();
+        return ref.get();
+    }
+
+    public static <T> T getDubboBean(Class<T> clazz, String version) throws Exception {
+        Properties prop = SysProperties.INSTANCE.getProperties("dubbo.properties");
+        ReferenceBean<T> ref = new ReferenceBean<T>();
+        ref.setVersion(version);
+        ref.setInterface(clazz);
+        ref.setCheck(false);
+        ref.setTimeout(30000);
+        ref.setGroup(clazz.getSimpleName());
+        ref.setApplication(new ApplicationConfig(prop.getProperty("dubbo.appName")));
+        ref.setRegistry(new RegistryConfig(prop.getProperty("dubbo.registry.address")));
+        ref.afterPropertiesSet();
+        return ref.get();
+    }
+
 }

@@ -1,4 +1,4 @@
-package yp970814.lock.redis.jedis;
+package yp970814.redis.jedis;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

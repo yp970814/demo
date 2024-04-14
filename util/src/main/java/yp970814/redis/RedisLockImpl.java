@@ -1,4 +1,4 @@
-package yp970814.lock.redis;
+package yp970814.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
