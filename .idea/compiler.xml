@@ -16,7 +16,7 @@
       <module name="demo" options="-parameters" />
       <module name="report" options="-parameters" />
       <module name="seata" options="-parameters" />
-      <module name="util" options="" />
+      <module name="util" options="-parameters" />
     </option>
   </component>
 </project>
