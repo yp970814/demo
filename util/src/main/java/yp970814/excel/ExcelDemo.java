@@ -6,6 +6,7 @@ import com.alibaba.excel.enums.CellExtraTypeEnum;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.Get;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 import yp970814.excel.export.ExportUtil;
@@ -107,21 +108,18 @@ public class ExcelDemo {
      * @param response
      */
     public void exportOrderExcel(HttpServletResponse response) {
-        List<OrderVO> orderList = new ArrayList<>();
+        List<OrderVO> orderList = new ArrayList<OrderVO>(){{
+           add(getOrderVO());
+        }};
+        ExportUtil.exportExcel(response, "采购订单导出", orderList, OrderVO.class);
+    }
+
+    public static @NonNull OrderVO getOrderVO() {
         OrderVO orderVO = new OrderVO();
         orderVO.setSequenceNo("001");
         orderVO.setOrderType("电商");
         orderVO.setOrderDate(new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 
-        List<OrderDetailVO> orderDetailList = getOrderDetailVOS();
-
-        orderVO.setOrderDetailDTOList(orderDetailList);
-        orderList.add(orderVO);
-        
-        ExportUtil.exportExcel(response, "采购订单导出", orderList, OrderVO.class);
-    }
-
-    private static @NonNull List<OrderDetailVO> getOrderDetailVOS() {
         List<OrderDetailVO> orderDetailList = new ArrayList<>();
         OrderDetailVO orderDetailVO = new OrderDetailVO();
         orderDetailVO.setMaterialCode("aaa");
@@ -134,7 +132,10 @@ public class ExcelDemo {
         orderDetailVO.setMaterialName("菠萝");
         orderDetailVO.setQuantity(BigDecimal.valueOf(2));
         orderDetailList.add(orderDetailVO2);
-        return orderDetailList;
+
+        orderVO.setOrderDetailDTOList(orderDetailList);
+
+        return orderVO;
     }
 
 }

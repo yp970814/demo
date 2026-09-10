@@ -3,6 +3,7 @@ package yp970814.excel;
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import yp970814.annotation.excel.ExcelSelect;
 import yp970814.excel.converter.DateConverter;
 import yp970814.excel.importExcel.BaseExcelImport;
 import yp970814.excel.importExcel.Group;
@@ -31,6 +32,7 @@ public class OrderImportDTO extends BaseExcelImport {
 
     @NotNull(message = "订单类型不能为空！", groups = {Default.class})
     @ExcelProperty(value = "*订单类型")
+    @ExcelSelect(dictCode = "xxx")
     private String orderType;
 
     @NotNull(message = "订单日期不能为空！", groups = {Default.class})

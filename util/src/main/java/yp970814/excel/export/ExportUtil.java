@@ -188,7 +188,7 @@ public class ExportUtil {
         return Triple.of(list, dataFormatList, map);
     }
 
-    private static Map<String, String> getDictValueKeyByCode(String dictCode) {
+    public static Map<String, String> getDictValueKeyByCode(String dictCode) {
         return new HashMap<String, String>(){{
             put("1", "自营订单");
             put("2", "协销订单");
